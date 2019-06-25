@@ -3,6 +3,7 @@ import {robots} from './robots';
 import CardList from './CardList';
 import Search from './Search';
 import './App.css';
+import Scroll from './Scroll';
 
 const state={
 	robots:robots,
@@ -35,7 +36,8 @@ class App extends Component{
 		return(<div className='tc'>
 		<h1>Robofriends</h1>
 		<Search  SearchChange={this.onSearchChange}/>
-		<CardList robots={possibleRobots}/>
+		<br></br>
+		<Scroll><CardList robots={possibleRobots}/></Scroll>
 		</div>
 		)
 	}
