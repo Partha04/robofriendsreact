@@ -3,6 +3,7 @@ import {robots} from './robots';
 import CardList from './CardList';
 import Search from './Search';
 import './App.css';
+import Scroll from './Scroll';
 
 const state={
 	robots:robots,
@@ -15,10 +16,16 @@ class App extends Component{
 		super();
 		this.state=
 		{ 
-			robots:robots,
+			robots:[],
 			searchfeild:''
 
 		};
+	}
+
+	componentDidMount()
+	{
+		fetch('https://jsonplaceholder.typicode.com/users').then(Response=>Response.json()).
+		then(user=>{this.setState({robots:user})})	;
 	}
 
 	onSearchChange=(event)=>{
@@ -28,14 +35,15 @@ class App extends Component{
 	}
 
 	render(){
-		const possibleRobots=this.state.robots.filter(robots=>{
-			return robots.name.toLowerCase().includes(this.state.searchfeild.toLowerCase());
+		const possibleRobots=this.state.robots.filter(robot=>{
+			return robot.name.toLowerCase().includes(this.state.searchfeild.toLowerCase());
 		});
 
 		return(<div className='tc'>
 		<h1>Robofriends</h1>
 		<Search  SearchChange={this.onSearchChange}/>
-		<CardList robots={possibleRobots}/>
+		<br></br>
+		<Scroll><CardList robots={possibleRobots}/></Scroll>
 		</div>
 		)
 	}
